@@ -1,4 +1,9 @@
-//sample query
+#sample query
+
+#DB name : test
+#table name : i_can_do_it
+
+
 
 CREATE TABLE i_can_do_it(
 	no int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
