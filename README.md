@@ -1,5 +1,3 @@
 # SpringBoard
 
-#DB name : test
-#table name : i_can_do_it
-
+simple CRUD Board + join
