@@ -1,3 +1,5 @@
+//sample query
+
 CREATE TABLE i_can_do_it(
 	no int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 	id varchar(50) NOT NULL UNIQUE,
