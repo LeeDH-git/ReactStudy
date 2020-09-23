@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Board.mappers.board">
+
+	<!-- 게시물 목록 -->
+	<select id="list" parameterType ="com.Board.domain.SearchVO" resultType="com.Board.domain.BoardVO">
+		select
+	 		no, id, name, goal, date, time
+	 	from i_can_do_it
+	 	
+			<if test="searchType=='name' and keyword != null">
+				where name like CONCAT("%", #{keyword}, "%")
+			</if>
+			
+			<if test="searchType=='id' and keyword != null">
+				where id like CONCAT("%", #{keyword}, "%")
+			</if>
+			
+			<if test="searchType=='goal' and keyword != null">
+				where goal like CONCAT("%", #{keyword}, "%")
+			</if>
+	</select>
+	
+	<!--  회원 등록  -->
+    <insert id="write">
+	    insert into i_can_do_it (id,name,goal,date,time,position_code)
+	    values (#{id}, #{name}, #{goal}, NOW(),NOW(),#{position_code})
+    </insert>
+        
+    <!--  회원 정보 수정  -->
+    <update id="update">
+        update i_can_do_it
+        set name=#{name}, goal=#{goal}, id=#{id}, time=NOW(), date=NOW()
+        where no=#{no}
+    </update>
+	
+    <!--  회원 삭제  -->
+    <delete id="delete">
+        delete from i_can_do_it
+        where no=#{no}
+    </delete>
+    
+	<!-- 직책 목록 -->
+		<select id="poslist" resultType="com.Board.domain.PositionVO">
+		select
+	 		position_code, position_name
+	 	from position_code
+		</select>
+
+    <!--  게시글 상세내용  -->
+    <select id="detail" resultType="com.Board.domain.BoardVO">
+        select no, id, name, goal, date, time
+        from i_can_do_it where no = #{no}
+    </select>
+    
+	<!--  조인  -->
+	<select id="jlist" resultType="com.Board.domain.PositionJoinVO">
+		SELECT no, id, name, position_name
+		FROM i_can_do_it I INNER JOIN position_code P
+		ON I.position_code = P.position_code
+	</select>
+
+</mapper>
